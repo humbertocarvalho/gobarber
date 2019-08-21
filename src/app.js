@@ -6,6 +6,7 @@ class App {
     this.server = express();
     this.middlewares();
     this.routes();
+    0;
   }
 
   middlewares() {
