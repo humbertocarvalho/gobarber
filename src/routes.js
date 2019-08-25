@@ -8,6 +8,7 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import authMiddleware from './app/middlewares/auth';
 import AppointmentController from './app/controllers/AppointmentController';
+import ScheduleController from './app/controllers/ScheduleController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -33,5 +34,8 @@ routes.get('/providers', authMiddleware, ProviderController.index);
 // Rotas de Agendamentos
 routes.get('/appointments', authMiddleware, AppointmentController.index);
 routes.post('/appointments', authMiddleware, AppointmentController.store);
+
+// Rotas de Consulta de Agenda do Provider
+routes.get('/schedule', authMiddleware, ScheduleController.index);
 
 export default routes;
