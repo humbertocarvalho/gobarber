@@ -31,6 +31,7 @@ routes.post(
 routes.get('/providers', authMiddleware, ProviderController.index);
 
 // Rotas de Agendamentos
+routes.get('/appointments', authMiddleware, AppointmentController.index);
 routes.post('/appointments', authMiddleware, AppointmentController.store);
 
 export default routes;
