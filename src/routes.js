@@ -36,6 +36,11 @@ routes.get('/providers', authMiddleware, ProviderController.index);
 // Rotas de Agendamentos
 routes.get('/appointments', authMiddleware, AppointmentController.index);
 routes.post('/appointments', authMiddleware, AppointmentController.store);
+routes.delete(
+  '/appointments/:id',
+  authMiddleware,
+  AppointmentController.delete
+);
 
 // Rotas de Consulta de Agenda do Provider
 routes.get(
