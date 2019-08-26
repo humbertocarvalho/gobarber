@@ -52,5 +52,6 @@ routes.get(
   providerMiddleware,
   NotificationController.index
 );
+routes.put('/notifications/:id', authMiddleware, NotificationController.update);
 
 export default routes;
