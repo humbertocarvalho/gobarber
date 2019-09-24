@@ -13,15 +13,20 @@ import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 import AvailableController from './app/controllers/AvailableController';
 
+import validateUserStore from './app/validators/UserStore';
+import validateUserUpdate from './app/validators/UserUpdate';
+import validateSessionStore from './app/validators/SessionStore';
+import validateAppointmentStore from './app/validators/AppointmentStore';
+
 const routes = new Router();
 const upload = multer(multerConfig);
 
 // Rotas de Usuário
-routes.post('/users', UserController.store);
-routes.put('/users', authMiddleware, UserController.update);
+routes.post('/users', validateUserStore, UserController.store);
+routes.put('/users', authMiddleware, validateUserUpdate, UserController.update);
 
 // Rotas de Sessão
-routes.post('/sessions', SessionController.store);
+routes.post('/sessions', validateSessionStore, SessionController.store);
 
 // Rotas de Arquivo
 routes.post(
@@ -37,7 +42,12 @@ routes.get('/providers/:providerId/available', AvailableController.index);
 
 // Rotas de Agendamentos
 routes.get('/appointments', authMiddleware, AppointmentController.index);
-routes.post('/appointments', authMiddleware, AppointmentController.store);
+routes.post(
+  '/appointments',
+  authMiddleware,
+  validateAppointmentStore,
+  AppointmentController.store
+);
 routes.delete(
   '/appointments/:id',
   authMiddleware,
