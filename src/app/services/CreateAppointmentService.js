@@ -4,6 +4,7 @@ import User from '../models/User';
 
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
+import Cache from '../../lib/Cache';
 
 class CreateAppointmentService {
   async run({ provider_id, user_id, date }) {
@@ -52,6 +53,7 @@ class CreateAppointmentService {
       user: provider_id,
     });
 
+    await Cache.expirePrefix(`user:${user_id}:appointments`);
     return appointment;
   }
 }

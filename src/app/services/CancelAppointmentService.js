@@ -3,6 +3,7 @@ import Appointment from '../models/Appointment';
 import User from '../models/User';
 import Queue from '../../lib/Queue';
 import CancellationMail from '../jobs/CancellationMail';
+import Cache from '../../lib/Cache';
 
 class CancelAppointmentService {
   async run({ appointment_id, user_id }) {
@@ -37,6 +38,8 @@ class CancelAppointmentService {
     await Queue.add(CancellationMail.key, {
       appointment,
     });
+
+    await Cache.expirePrefix(`user:${user_id}:appointments`);
 
     return appointment;
   }

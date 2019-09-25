@@ -22,6 +22,14 @@ class Cache {
   expire(key) {
     return this.redis.del(key);
   }
+
+  async expirePrefix(prefix) {
+    const keys = await this.redis.keys(`cache:${prefix}:*`);
+
+    const keyWithoutPrefix = keys.map(key => key.replace('cache:', ''));
+
+    return this.redis.del(keyWithoutPrefix);
+  }
 }
 
 export default new Cache();
